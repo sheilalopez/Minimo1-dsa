@@ -10,7 +10,7 @@ public class PlayList {
     private Usuario usuario;
 
     //constructores
-    public PlayList (){
+    public PlayList(String id, Usuario usuario, String nombre){
         this.titulos = new LinkedList<>();
     }
 
@@ -53,7 +53,7 @@ public class PlayList {
         this.usuario = usuario;
     }
     //metodos
-    public void añadirTitulo (Titulo titulo){
+    public void añadirTitulo (String titulo){
         this.titulos.add(titulo);
     }
 }

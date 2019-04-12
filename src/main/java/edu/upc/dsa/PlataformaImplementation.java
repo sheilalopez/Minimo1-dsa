@@ -41,12 +41,13 @@ public class PlataformaImplementation implements Plataforma{
     public void añadirArtista(String id, String nombre) {
         Artista a = new Artista(id,nombre);
         this.artists.add(a);
+        this.numArtistas++;
 
 
     }
 
     @Override
-    public List<Artista> ListadoDeArtistas() throws ArtistaNotFoundException {
+    public List<Artista> ListadoDeArtistas() {
         List<Artista> artistas = new LinkedList<>();
         artistas.addAll(this.artists);
         return artistas;
@@ -58,27 +59,17 @@ public class PlataformaImplementation implements Plataforma{
     }
 
 
+
     @Override
-    public void añadirTitulo(String id, String nombre, Artista artista, String idPlayList) throws PlayListNotFoundException {
-       Titulo titulo = new Titulo(id,nombre,artista);
-       PlayList playList = this.playLists.get(idPlayList);
-       if (playList != null){
-           log.info("La playList existe");
-           playList.añadirTitulo(titulo);
-       }else {
-           throw new PlayListNotFoundException();
-       }
-
-
-
-
-
-
+    public void añadirTitulo(String titulo , String idPlaylist) throws PlayListNotFoundException {
+        PlayList playlist = this.getPlayList(idPlaylist);
+        playlist.añadirTitulo(titulo);
 
     }
 
     @Override
-    public void crearPlayList(String id, Usuario usuario, String nombre) throws UsuarioNotFoundException {
+    public void crearPlayList(String id, String idUsuario, String nombre) throws UsuarioNotFoundException {
+        Usuario usuario = this.users.get(idUsuario);
         PlayList playList = new PlayList(id,usuario,nombre);
         this.playLists.add(playList);
 
@@ -104,8 +95,53 @@ public class PlataformaImplementation implements Plataforma{
 
 
     }
+    @Override
+    public void añadirUsuario(String id, String nombre) {
+        this.users.put(id, new Usuario (id,nombre));
+        log.info(users.size());
+        log.info("User added:" + this.users.get(id));
 
 
+    }
+
+    @Override
+    public int numArtistas() {
+        return 0;
+    }
+
+    @Override
+    public int numPlaylists() {
+        return 0;
+    }
+
+    public PlayList getPlayList (String idPlaylist) throws PlayListNotFoundException {
+        for (int i = 0; i < this.numPlaylists(); i++) {
+            if (idPlaylist.equals(this.playLists.get(i).getId())) return this.playLists.get(i);
+        }
+        log.info("Playlist no encontrada ");
+        throw new PlayListNotFoundException();
+    }
+    private int getArtistById(String idArtist) throws ArtistaNotFoundException {
+        for (int i = 0; i < this.numArtistas(); i++) {
+            if (idArtist.equals(this.artists.get(i).getId())) return i;
+        }
+        log.info("Artist not found");
+        throw new ArtistaNotFoundException();
+    }
+    @Override
+    public void clear() {
+        instance = null;
+        this.playLists = null;
+        this.titulos = null;
+        this.artists = null;
+        this.users = null;
+        log.info("Data cleared");
+    }
+
+    @Override
+    public int numUsers() {
+        return 0;
+    }
 
 
 }
