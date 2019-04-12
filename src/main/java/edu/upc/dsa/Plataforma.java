@@ -1,5 +1,7 @@
 package edu.upc.dsa;
 
+import java.util.List;
+
 public interface Plataforma {
     //fachada
     public void añadirArtista(String id, String nombre);
