@@ -98,7 +98,7 @@ public class PlataformaServices {
             return Response.status(404).build();
         }
     }
-    /*@POST
+    @POST
     @ApiOperation(value = "añadir un titulo a una playlist")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response= Titulo.class),
@@ -108,10 +108,10 @@ public class PlataformaServices {
     })
     @Path("/titol/{idUser}/{idPlayList}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addTitol(Titulo titulo ,@PathParam("idUser") String idUser,@PathParam("idPlayList") String idPlayList) {
+    public Response addTitol(@PathParam("idUser") String idUser,@PathParam("idPlayList") String idPlayList, @PathParam("titulo") String idTitulo, @PathParam("nombre") String nombre,@PathParam("artista") String artista) {
         try{
-            this.Plataforma.añadirTitulo(idUser,idPlayList,titulo.getPlaylists(),titulo.getId(),titulo.getNombre(),titulo.getArtista());
-            return Response.status(201).entity(titulo).build();
+            this.Plataforma.añadirTitulo(idUser,idPlayList,idTitulo,nombre,artista);
+            return Response.status(201).build();
         } catch(UsuarioNotFoundException e1){
             return Response.status(404).build();
         } catch(PlayListNotFoundException e2){
@@ -119,5 +119,5 @@ public class PlataformaServices {
         } catch(ArtistaNotFoundException e3){
             return Response.status(406).build();
         }
-    }*/
+    }
 }
