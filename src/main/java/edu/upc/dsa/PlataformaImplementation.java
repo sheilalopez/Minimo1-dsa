@@ -1,10 +1,7 @@
 package edu.upc.dsa;
 
 import org.apache.log4j.Logger;
-import sun.awt.image.ImageWatched;
 
-
-import java.util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +15,7 @@ public class PlataformaImplementation implements Plataforma{
     private static PlataformaImplementation instance;
     private int numArtistas;
     private HashMap<String,Usuario> users;
-    private LinkedList<Titulo> titulos;
+    private LinkedList titulos;
     private LinkedList<Artista> artists;
     private ArrayList<PlayList> playLists;
 
@@ -61,11 +58,35 @@ public class PlataformaImplementation implements Plataforma{
 
 
     @Override
-    public void añadirTitulo(String titulo , String idPlaylist) throws PlayListNotFoundException {
-        PlayList playlist = this.getPlayList(idPlaylist);
-        playlist.añadirTitulo(titulo);
+    public void añadirTitulo(String idUser, String idPlayList, String idTitulo, String nombre, String artista) throws PlayListNotFoundException, UsuarioNotFoundException,ArtistaNotFoundException{
+        PlayList playlists = this.getPlayList(idPlayList);
+        Usuario usuario = getUsuario(idUser);
+        Artista artist = getArtista(artista);
+
+        Titulo titulo = new Titulo(idTitulo,nombre,artista);
+
+        this.titulos.add(titulo);
+
+
 
     }
+    public Usuario getUsuario(String idUsuario) throws UsuarioNotFoundException {
+        Usuario usuarioencontrado = this.users.get(idUsuario);
+        if(usuarioencontrado!=null){
+            return usuarioencontrado;
+        }else
+        throw new UsuarioNotFoundException();
+    }
+    public Artista getArtista(String artista) throws ArtistaNotFoundException {
+        for(Artista artist : this.artists){
+            if(artist.getNombre().equals(artista)){
+                return artist;
+            }
+        }
+        throw new ArtistaNotFoundException();
+    }
+
+
 
     @Override
     public void crearPlayList(String id, String idUsuario, String nombre) throws UsuarioNotFoundException {
@@ -111,6 +132,10 @@ public class PlataformaImplementation implements Plataforma{
 
     @Override
     public int numPlaylists() {
+        return 0;
+    }
+    @Override
+    public int numTitulos(){
         return 0;
     }
 

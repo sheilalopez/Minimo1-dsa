@@ -7,14 +7,14 @@ public class PlayList {
     private String id;
     private String nombre;
     private LinkedList<Titulo> titulos;
-    private Usuario usuario;
+    private String usuario;
 
     //constructores
     public PlayList(String id, Usuario usuario, String nombre){
-        this.titulos = new LinkedList<>();
+        this.titulos = new LinkedList<Titulo>();
     }
 
-    public PlayList(String id, String nombre) {
+    public PlayList(String id, String nombre, String usuario) {
         this.id = id;
         this.nombre = nombre;
         this.titulos = titulos;
@@ -45,15 +45,15 @@ public class PlayList {
         this.titulos = titulos;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
     //metodos
-    public void añadirTitulo (String titulo){
+    public void añadirTitulo (Titulo titulo){
         this.titulos.add(titulo);
     }
 }

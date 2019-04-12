@@ -1,8 +1,6 @@
 package edu.upc.dsa.services;
 
-import edu.upc.dsa.*;
-import edu.upc.dsa.exceptions.*;
-import edu.upc.dsa.models.*;
+import edu.upc.dsa.*;;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -72,13 +70,11 @@ public class PlataformaServices {
     })
     @Path("/playlist/{idArtist}/{idUser}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response añadirPlaylist(PlayList playlist, @PathParam("idArtist") String idArtista, @PathParam("idUser") String idUsuario) {
+    public Response añadirPlaylist(PlayList playlist, @PathParam("idArtist") String idArtista, @PathParam("idUser") String idUsuario, @PathParam("nombre") String nombre) {
         try {
-            this.Plataforma.crearPlayList(playlist.getId(), playlist.getUsuario(),playlist.getNombre());
+            this.Plataforma.crearPlayList(playlist.getId(),playlist.getUsuario(), playlist.getNombre());
             return Response.status(201).build();
-        } catch (ArtistaNotFoundException e) {
-            e.printStackTrace();
-            return Response.status(404).build();
+
         } catch (UsuarioNotFoundException e) {
             e.printStackTrace();
             return Response.status(405).build();
@@ -102,4 +98,26 @@ public class PlataformaServices {
             return Response.status(404).build();
         }
     }
+    /*@POST
+    @ApiOperation(value = "añadir un titulo a una playlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response= Titulo.class),
+            @ApiResponse(code = 404, message = "User not found"),
+            @ApiResponse(code = 405, message = "Playlist not found"),
+            @ApiResponse(code = 406, message = "Artista not found")
+    })
+    @Path("/titol/{idUser}/{idPlayList}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addTitol(Titulo titulo ,@PathParam("idUser") String idUser,@PathParam("idPlayList") String idPlayList) {
+        try{
+            this.Plataforma.añadirTitulo(idUser,idPlayList,titulo.getPlaylists(),titulo.getId(),titulo.getNombre(),titulo.getArtista());
+            return Response.status(201).entity(titulo).build();
+        } catch(UsuarioNotFoundException e1){
+            return Response.status(404).build();
+        } catch(PlayListNotFoundException e2){
+            return Response.status(405).build();
+        } catch(ArtistaNotFoundException e3){
+            return Response.status(406).build();
+        }
+    }*/
 }

@@ -6,7 +6,7 @@ public class Titulo {
     //atributos
     private String id;
     private String nombre;
-    private Artista artista;
+    private String artista;
     private ArrayList<PlayList> playlists;
 
     //constructores
@@ -14,7 +14,7 @@ public class Titulo {
         this.playlists = new ArrayList<>();
     }
 
-    public Titulo(String id, String nombre, Artista artista) {
+    public Titulo(String id, String nombre, String artista) {
         this.id = id;
         this.nombre = nombre;
         this.artista = artista;
@@ -37,11 +37,11 @@ public class Titulo {
         this.nombre = nombre;
     }
 
-    public Artista getArtista() {
+    public String getArtista() {
         return artista;
     }
 
-    public void setArtista(Artista artista) {
+    public void setArtista(String artista) {
         this.artista = artista;
     }
 
